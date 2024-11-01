@@ -272,3 +272,9 @@ D:\VLU-KTPM\VLU-K28-NAM3\KI-I\DOAN3-FOLDER\DNDServer\DNDServer\bin\Debug\net8.0\
 D:\VLU-KTPM\VLU-K28-NAM3\KI-I\DOAN3-FOLDER\DNDServer\DNDServer\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\VLU-KTPM\VLU-K28-NAM3\KI-I\DOAN3-FOLDER\DNDServer\DNDServer\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 D:\VLU-KTPM\VLU-K28-NAM3\KI-I\DOAN3-FOLDER\DNDServer\DNDServer\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+D:\VLU-KTPM\VLU-K28-NAM3\KI-I\DOAN3-FOLDER\DNDServer\DNDServer\bin\Debug\net8.0\libman.json
+D:\VLU-KTPM\VLU-K28-NAM3\KI-I\DOAN3-FOLDER\DNDServer\DNDServer\bin\Debug\net8.0\RestSharp.dll
+D:\VLU-KTPM\VLU-K28-NAM3\KI-I\DOAN3-FOLDER\DNDServer\DNDServer\obj\Debug\net8.0\DNDServer.sourcelink.json
+D:\VLU-KTPM\VLU-K28-NAM3\KI-I\DOAN3-FOLDER\DNDServer\DNDServer\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\VLU-KTPM\VLU-K28-NAM3\KI-I\DOAN3-FOLDER\DNDServer\DNDServer\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\VLU-KTPM\VLU-K28-NAM3\KI-I\DOAN3-FOLDER\DNDServer\DNDServer\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll

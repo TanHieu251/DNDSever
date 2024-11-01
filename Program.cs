@@ -2,6 +2,8 @@
 using DNDServer.Authen.Repository;
 using DNDServer.Authen.Request;
 using DNDServer.Data;
+using DNDServer.Repository.Product;
+using DNDServer.Repository.Project;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -37,11 +39,17 @@ namespace DNDServer
                 .AddEntityFrameworkStores<DNDContext>()
                 .AddDefaultTokenProviders();
 
+            //REPOSITORY
+
+            builder.Services.AddScoped<ITypeProductRepository, TypeProductRepository>();
+            builder.Services.AddScoped<ITypeProjectRepository, TypeProjectRepository>();
+            builder.Services.AddScoped<IAccountRepository, AcccountRepository>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 
             //builder.Services.AddAutoMapper(typeof(Program));
 
             //            //LIFE CYCLE DI : ADDSINGLETON(), ADTRANSIENT(), ADDSCOPE()
-            builder.Services.AddScoped<IAccountRepository, AcccountRepository>();
             builder.Services.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

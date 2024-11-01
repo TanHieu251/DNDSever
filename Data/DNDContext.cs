@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using DNDServer.Authen.Request;
-using DNDServer.DTO.Request;
+using DNDServer.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,13 @@ public partial class DNDContext : IdentityDbContext<ApplicationUser>
     {
 
     }
+    public DbSet<TypeProduct> TypeProducts { get; set; }
+    public DbSet<TypeProject> TypeProjects { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Project> Projects { get; set; }
 
+    public DbSet<ImgProduct> ImgProducts { get; set; }
+    public DbSet<ImgProject> ImgProjects { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -50,12 +57,43 @@ public partial class DNDContext : IdentityDbContext<ApplicationUser>
             .WithMany(tp => tp.OrderDetails)
             .HasForeignKey(p => p.ProductId);
 
-        //category
+
+        //TYPE PRODUCT
         builder.Entity<TypeProduct>()
-        .HasOne(p => p.Category)
-        .WithMany(tp => tp.TypeProducts)
-        .HasForeignKey(p => p.CategoryID);
+            .HasKey(k => k.Id);
+
+        builder.Entity<TypeProduct>()
+           .Property(p => p.Id)
+           .ValueGeneratedOnAdd();
+
+        //TYPE PRODJECT
+        builder.Entity<TypeProject>()
+            .HasKey(k => k.Id);
+
+        builder.Entity<TypeProject>()
+           .Property(p => p.Id)
+           .ValueGeneratedOnAdd();
+
+        // PRODUCT
+        builder.Entity<Product>()
+            .HasKey(k => k.Id);
+
+        builder.Entity<Product>()
+           .Property(p => p.Id)
+           .ValueGeneratedOnAdd();
+
+        // PROJECT
+        builder.Entity<Project>()
+            .HasKey(k => k.Id);
+
+        builder.Entity<Project>()
+           .Property(p => p.Id)
+           .ValueGeneratedOnAdd();
+
+
 
     }
+
+public DbSet<DNDServer.Model.Project> Project { get; set; } = default!;
 
 }

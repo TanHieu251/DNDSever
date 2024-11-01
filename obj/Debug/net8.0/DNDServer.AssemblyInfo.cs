@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DNDServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c0af11262d01f48170131c91cb864b833ebf756a")]
 [assembly: System.Reflection.AssemblyProductAttribute("DNDServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DNDServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
