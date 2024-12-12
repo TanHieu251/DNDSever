@@ -15,6 +15,9 @@ public partial class DNDContext : IdentityDbContext<ApplicationUser>
     {
 
     }
+
+    public DbSet<Company> companies { get; set; }
+    public DbSet<Services> servicesdb { get; set; }
     public DbSet<TypeProduct> TypeProducts { get; set; }
     public DbSet<TypeProject> TypeProjects { get; set; }
     public DbSet<Product> Products { get; set; }
@@ -22,9 +25,49 @@ public partial class DNDContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<ImgProduct> ImgProducts { get; set; }
     public DbSet<ImgProject> ImgProjects { get; set; }
+    public DbSet<New> news { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+
+
+
+
+        //COMPANY
+        builder.Entity<Company>()
+            .HasKey(k => k.Id);
+
+
+        builder.Entity<Company>()
+           .Property(p => p.Id)
+           .ValueGeneratedOnAdd();
+
+        //service
+        builder.Entity<Services>()
+            .HasKey(k => k.Id);
+
+
+        builder.Entity<Services>()
+           .Property(p => p.Id)
+           .ValueGeneratedOnAdd();
+
+        //NEW
+        builder.Entity<New>()
+            .HasKey(k => k.Id);
+
+
+        builder.Entity<New>()
+           .Property(p => p.Id)
+           .ValueGeneratedOnAdd();
+
+        //service
+        builder.Entity<New>()
+            .HasKey(k => k.Id);
+
+
+        builder.Entity<New>()
+           .Property(p => p.Id)
+           .ValueGeneratedOnAdd();
 
         // PROJECT
         builder.Entity<Project>()
@@ -32,13 +75,25 @@ public partial class DNDContext : IdentityDbContext<ApplicationUser>
             .WithMany(tp => tp.Project)
             .HasForeignKey(p => p.TypeData);
 
-        // IMG PRODUCT
+        // IMG PROJECT
         builder.Entity<ImgProject>()
             .HasOne(p => p.Projects)
                 .WithMany(tp => tp.ImgProjects)
                 .HasForeignKey(p => p.ProjectId);
-            
-    // ORDER
+
+        // PROJECT
+        builder.Entity<Product>()
+           .HasOne(p => p.TypeProduct)
+            .WithMany(tp => tp.Product)
+            .HasForeignKey(p => p.TypeData);
+
+        // IMG PROJECT
+        builder.Entity<ImgProduct>()
+            .HasOne(p => p.Product)
+                .WithMany(tp => tp.ImgProduct)
+                .HasForeignKey(p => p.ProductId);
+
+        // ORDER
         builder.Entity<Order>()
             .HasOne(p => p.User)
                 .WithMany(tp => tp.Orders)

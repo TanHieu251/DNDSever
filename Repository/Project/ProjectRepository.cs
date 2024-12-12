@@ -86,20 +86,23 @@ namespace DNDServer.Repository.Project
             if (dtoProject == null) throw new ArgumentNullException(nameof(dtoProject));
 
             var project = await _context.Projects.FindAsync(dtoProject.Id);
-            if (project != null)
+            if (project == null)
             {
-                project.Code = dtoProject.Code;
-                project.Name = dtoProject.Name;
-                project.Description = dtoProject.Description;
-                project.Feature = dtoProject.Feature;
-                project.DateStart = dtoProject.DateStart;
-                project.DateEnd = dtoProject.DateEnd;
-                project.Status = dtoProject.Status;
-                project.StatusName = dtoProject.StatusName;
-                project.TypeData = dtoProject.TypeData;
-
-                await _context.SaveChangesAsync();
+                throw new KeyNotFoundException("Project not found."); 
             }
+
+            // Update the project properties
+            project.Code = dtoProject.Code;
+            project.Name = dtoProject.Name;
+            project.Description = dtoProject.Description;
+            project.Feature = dtoProject.Feature;
+            project.DateStart = dtoProject.DateStart;
+            project.DateEnd = dtoProject.DateEnd;
+            project.Status = dtoProject.Status;
+            project.StatusName = dtoProject.StatusName;
+            project.TypeData = dtoProject.TypeData;
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteProjectAsync(int id)

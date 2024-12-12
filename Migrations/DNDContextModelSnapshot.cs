@@ -96,6 +96,59 @@ namespace DNDServer.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("DNDServer.Model.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("About")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CommitQuality")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CoreValues")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Customer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Field")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Member")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Target")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VisionMission")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("companies");
+                });
+
             modelBuilder.Entity("DNDServer.Model.ImgProduct", b =>
                 {
                     b.Property<int>("Id")
@@ -138,6 +191,35 @@ namespace DNDServer.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("ImgProjects");
+                });
+
+            modelBuilder.Entity("DNDServer.Model.New", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Img")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Intro")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("news");
                 });
 
             modelBuilder.Entity("DNDServer.Model.Order", b =>
@@ -248,19 +330,12 @@ namespace DNDServer.Migrations
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("ThumbNail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("TypeData")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TypeProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeProductId");
+                    b.HasIndex("TypeData");
 
                     b.ToTable("Products");
                 });
@@ -301,10 +376,6 @@ namespace DNDServer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ThumbNail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("TypeData")
                         .HasColumnType("int");
 
@@ -313,6 +384,35 @@ namespace DNDServer.Migrations
                     b.HasIndex("TypeData");
 
                     b.ToTable("Project");
+                });
+
+            modelBuilder.Entity("DNDServer.Model.Services", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Characteristic")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Process")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("servicesdb");
                 });
 
             modelBuilder.Entity("DNDServer.Model.TypeProduct", b =>
@@ -499,7 +599,7 @@ namespace DNDServer.Migrations
             modelBuilder.Entity("DNDServer.Model.ImgProduct", b =>
                 {
                     b.HasOne("DNDServer.Model.Product", "Product")
-                        .WithMany("ImgProjects")
+                        .WithMany("ImgProduct")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -552,7 +652,7 @@ namespace DNDServer.Migrations
                 {
                     b.HasOne("DNDServer.Model.TypeProduct", "TypeProduct")
                         .WithMany("Product")
-                        .HasForeignKey("TypeProductId")
+                        .HasForeignKey("TypeData")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -633,7 +733,7 @@ namespace DNDServer.Migrations
 
             modelBuilder.Entity("DNDServer.Model.Product", b =>
                 {
-                    b.Navigation("ImgProjects");
+                    b.Navigation("ImgProduct");
 
                     b.Navigation("OrderDetails");
                 });

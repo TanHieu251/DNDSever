@@ -6,7 +6,6 @@
         public int Code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string ThumbNail { get; set; }
         public string Feature { get; set; }
         public int Status { get; set; }
         public DateOnly DateStart { get; set; }

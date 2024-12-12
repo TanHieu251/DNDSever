@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using DNDServer.DTO.Request;
 using DNDServer.DTO.Response;
 using DNDServer.Repository.Product;
+using Microsoft.EntityFrameworkCore;
 
 namespace DNDServer.Controllers
 {
@@ -21,7 +22,7 @@ namespace DNDServer.Controllers
         }
 
         // API GET ALL PRODUCTS
-        [HttpGet]
+        [HttpGet("GetAllProduct")]
         public async Task<IActionResult> GetAllProducts()
         {
             try
@@ -46,7 +47,7 @@ namespace DNDServer.Controllers
         }
 
         // API GET PRODUCT BY ID
-        [HttpGet("{id}")]
+        [HttpPost("GetProduct")]
         public async Task<IActionResult> GetProductById(int id)
         {
             try
@@ -80,7 +81,7 @@ namespace DNDServer.Controllers
         }
 
         // API ADD PRODUCT
-        [HttpPost]
+        [HttpPost("AddProduct")]
         public async Task<IActionResult> AddProduct(DTOProduct dtoProduct)
         {
             try
@@ -93,8 +94,21 @@ namespace DNDServer.Controllers
                     Data = dtoProduct
                 });
             }
+            catch (DbUpdateException dbEx) // Catch database update exceptions specifically
+            {
+                // Log the inner exception details
+                var innerException = dbEx.InnerException != null ? dbEx.InnerException.Message : dbEx.Message;
+
+                return StatusCode(500, new DTOResponse
+                {
+                    IsSuccess = false,
+                    Message = $"Internal server error: {innerException}",
+                    Data = null
+                });
+            }
             catch (Exception ex)
             {
+                // Log general exceptions
                 return StatusCode(500, new DTOResponse
                 {
                     IsSuccess = false,
@@ -105,10 +119,10 @@ namespace DNDServer.Controllers
         }
 
         // API UPDATE PRODUCT
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, DTOProduct dtoProduct)
+        [HttpPost("UpdateProduct")]
+        public async Task<IActionResult> UpdateProduct(DTOProduct dtoProduct)
         {
-            if (id != dtoProduct.Id)
+            if (dtoProduct.Id <= 0) 
             {
                 return BadRequest(new DTOResponse
                 {
@@ -128,6 +142,15 @@ namespace DNDServer.Controllers
                     Data = dtoProduct
                 });
             }
+            catch (KeyNotFoundException knfEx)
+            {
+                return NotFound(new DTOResponse
+                {
+                    IsSuccess = false,
+                    Message = knfEx.Message, 
+                    Data = null
+                });
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, new DTOResponse
@@ -140,13 +163,13 @@ namespace DNDServer.Controllers
         }
 
         // API DELETE PRODUCT
-        [HttpDelete("{id}")]
+        [HttpPost("DeleteProduct")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             try
             {
                 await _productRepo.DeleteProductAsync(id);
-                return NoContent(); // Trả về NoContent nếu xóa thành công
+                return Ok(new DTOResponse { IsSuccess = false,Message= "Xoá sản phẩm thành công",Data=null});
             }
             catch (Exception ex)
             {

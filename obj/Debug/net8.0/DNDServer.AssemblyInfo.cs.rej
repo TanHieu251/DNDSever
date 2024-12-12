@@ -1,0 +1,10 @@
+diff a/obj/Debug/net8.0/DNDServer.AssemblyInfo.cs b/obj/Debug/net8.0/DNDServer.AssemblyInfo.cs	(rejected hunks)
+@@ -14,7 +14,7 @@
+ [assembly: System.Reflection.AssemblyCompanyAttribute("DNDServer")]
+ [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+ [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+86894e1d53adc5a29e5f0eaa1e135687a518c194")]
++[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c0af11262d01f48170131c91cb864b833ebf756a")]
+ [assembly: System.Reflection.AssemblyProductAttribute("DNDServer")]
+ [assembly: System.Reflection.AssemblyTitleAttribute("DNDServer")]
+ [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

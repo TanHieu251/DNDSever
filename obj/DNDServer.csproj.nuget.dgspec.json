@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer\\DNDServer\\DNDServer.csproj": {}
+    "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer - Copy\\DNDServer\\DNDServer.csproj": {}
   },
   "projects": {
-    "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer\\DNDServer\\DNDServer.csproj": {
+    "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer - Copy\\DNDServer\\DNDServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer\\DNDServer\\DNDServer.csproj",
+        "projectUniqueName": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer - Copy\\DNDServer\\DNDServer.csproj",
         "projectName": "DNDServer",
-        "projectPath": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer\\DNDServer\\DNDServer.csproj",
+        "projectPath": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer - Copy\\DNDServer\\DNDServer.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer\\DNDServer\\obj\\",
+        "outputPath": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer - Copy\\DNDServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -115,7 +115,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.110/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.111/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

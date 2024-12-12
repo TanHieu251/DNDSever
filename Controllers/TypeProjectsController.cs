@@ -10,6 +10,7 @@ using DNDServer.Model;
 using DNDServer.DTO.Request;
 using DNDServer.DTO.Response;
 using DNDServer.Repository.Project;
+using DNDServer.Migrations;
 
 namespace DNDServer.Controllers
 {
@@ -58,37 +59,29 @@ namespace DNDServer.Controllers
         }
 
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTypeProject(int id, TypeProject typeProject)
+        [HttpPost("UpdateTypeProject")]
+        public async Task<IActionResult> UpdateTypeProject( DTOTypeProject model)
         {
-            if (id != typeProject.Id)
+            if (model == null || string.IsNullOrWhiteSpace(model.Name))
             {
-                return BadRequest();
-            }
-
-            _context.Entry(typeProject).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TypeProjectExists(id))
+                return BadRequest(new DTOResponse
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                    IsSuccess = false,
+                    Message = "Model không hợp lệ.",
+                    Data = null
+                });
             }
 
-            return NoContent();
+            var response = await _typeProjectRepo.UpdateTypeProjectAsync(model);
+            if (response.IsSuccess)
+            {
+                return Ok(response);
+            }
+            return StatusCode(500, response);
         }
 
 
-        [HttpGet]
+        [HttpPost("GetAllTypeProject")]
         public async Task<IActionResult> GetAllTypeProjects()
         {
             try
@@ -108,7 +101,7 @@ namespace DNDServer.Controllers
         }
 
         // GET: api/TypeProjects/5
-        [HttpGet("{id}")]
+        [HttpPost("GetTypeProject")]
         public async Task<IActionResult> GetTypeProjectById(int id)
         {
             try
@@ -131,7 +124,7 @@ namespace DNDServer.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpPost("DeleteTypeProject")]
         public async Task<IActionResult> DeleteTypeProject(int id)
         {
             try
@@ -139,11 +132,21 @@ namespace DNDServer.Controllers
                 var response = await _typeProjectRepo.DeleteTypeProjectAsync(id);
                 if (response.IsSuccess)
                 {
-                    return NoContent();
+                    return Ok(new DTOResponse
+                    {
+                        IsSuccess = true,
+                        Message = "Xoá sản phẩm thành công",
+                        
+                    });
                 }
                 else
                 {
-                    return NotFound(response);
+                    return Ok(new DTOResponse
+                    {
+                        IsSuccess = true,
+                        Message = "Xoá loại dự án thành công, không tìm thấy",
+
+                    });
                 }
             }
             catch (Exception ex)

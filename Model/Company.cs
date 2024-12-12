@@ -4,6 +4,8 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+        public string About {  get; set; }
         public string Field { get; set; }
         public string VisionMission { get; set; }
         public string CoreValues { get; set; }

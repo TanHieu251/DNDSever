@@ -25,7 +25,7 @@ namespace DNDServer.Controllers
         }
 
         // API GET ALL PROJECTS
-        [HttpGet]
+        [HttpGet("GetAllProject")]
         public async Task<IActionResult> GetAllProjects()
         {
             try
@@ -50,7 +50,7 @@ namespace DNDServer.Controllers
         }
 
         // API GET PROJECT BY ID
-        [HttpGet("{id}")]
+        [HttpPost("GetProject")]
         public async Task<IActionResult> GetProjectById(int id)
         {
             try
@@ -84,17 +84,47 @@ namespace DNDServer.Controllers
         }
 
         // API ADD PROJECT
-        [HttpPost]
-        public async Task<IActionResult> AddProject(DTOProject dtoProject)
+        [HttpPost("AddProject")]
+        public async Task<IActionResult> AddProject([FromBody] DTOProject dtoProject)
         {
+            if (dtoProject == null)
+            {
+                return BadRequest(new DTOResponse
+                {
+                    IsSuccess = false,
+                    Message = "Dữ liệu không hợp lệ.",
+                    Data = null
+                });
+            }
+
+            if (string.IsNullOrWhiteSpace(dtoProject.Name)) 
+            {
+                return BadRequest(new DTOResponse
+                {
+                    IsSuccess = false,
+                    Message = "Tên dự án không được để trống.",
+                    Data = null
+                });
+            }
+
             try
             {
                 await _projectRepo.AddProjectAsync(dtoProject);
+
                 return CreatedAtAction(nameof(GetProjectById), new { id = dtoProject.Id }, new DTOResponse
                 {
                     IsSuccess = true,
                     Message = "Dự án đã được thêm thành công.",
                     Data = dtoProject
+                });
+            }
+            catch (DbUpdateException dbEx)
+            {
+                return StatusCode(500, new DTOResponse
+                {
+                    IsSuccess = false,
+                    Message = "Lỗi khi lưu dự án: " + dbEx.InnerException?.Message ?? dbEx.Message,
+                    Data = null
                 });
             }
             catch (Exception ex)
@@ -109,10 +139,10 @@ namespace DNDServer.Controllers
         }
 
         // API UPDATE PROJECT
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProject(int id, DTOProject dtoProject)
+        [HttpPost("UpdateProject")]
+        public async Task<IActionResult> UpdateProject(DTOProject dtoProject)
         {
-            if (id != dtoProject.Id)
+            if (dtoProject.Id == null)
             {
                 return BadRequest(new DTOResponse
                 {
@@ -144,13 +174,19 @@ namespace DNDServer.Controllers
         }
 
         // API DELETE PROJECT
-        [HttpDelete("{id}")]
+        [HttpPost("DeleteProject")]
         public async Task<IActionResult> DeleteProject(int id)
         {
             try
             {
                 await _projectRepo.DeleteProjectAsync(id);
-                return NoContent(); // Trả về NoContent nếu xóa thành công
+                return Ok(
+                    new DTOResponse
+                    {
+                        IsSuccess = true,
+                        Message = "Xoa du an thanh cong",
+                        Data = null
+                    } );
             }
             catch (Exception ex)
             {

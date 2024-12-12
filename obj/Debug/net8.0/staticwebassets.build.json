@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WqEKPQ0c8hTVE4Xd5XI+3QX49Aj4ICvkXGYLbu4k9q8=",
+  "Hash": "QAOaKp87mICx7GistPTZMFKAQNNgKDUOTq/wrdHeBiU=",
   "Source": "DNDServer",
   "BasePath": "_content/DNDServer",
   "Mode": "Default",
@@ -47,10 +47,10 @@
       "OriginalItemSpec": "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.10\\staticwebassets\\QuickGrid.razor.js"
     },
     {
-      "Identity": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer\\DNDServer\\obj\\Debug\\net8.0\\scopedcss\\bundle\\DNDServer.styles.css",
+      "Identity": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer - Copy\\DNDServer\\obj\\Debug\\net8.0\\scopedcss\\bundle\\DNDServer.styles.css",
       "SourceId": "DNDServer",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer\\DNDServer\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer - Copy\\DNDServer\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/DNDServer",
       "RelativePath": "DNDServer.styles.css",
       "AssetKind": "All",
@@ -63,7 +63,7 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer\\DNDServer\\obj\\Debug\\net8.0\\scopedcss\\bundle\\DNDServer.styles.css"
+      "OriginalItemSpec": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer - Copy\\DNDServer\\obj\\Debug\\net8.0\\scopedcss\\bundle\\DNDServer.styles.css"
     }
   ]
 }

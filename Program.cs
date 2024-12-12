@@ -2,6 +2,8 @@
 using DNDServer.Authen.Repository;
 using DNDServer.Authen.Request;
 using DNDServer.Data;
+using DNDServer.Repository.Company;
+using DNDServer.Repository.New;
 using DNDServer.Repository.Product;
 using DNDServer.Repository.Project;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -46,6 +48,9 @@ namespace DNDServer
             builder.Services.AddScoped<IAccountRepository, AcccountRepository>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+            builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+            builder.Services.AddScoped<INewRepository, NewRepository>();
+
 
             //builder.Services.AddAutoMapper(typeof(Program));
 

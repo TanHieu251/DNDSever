@@ -17,10 +17,23 @@ namespace DNDServer.Repository.Project
         }
 
 
+
+        //THEM LOAI DU AN
         public async Task<DTOResponse> AddTypeProjectAsync(DTOTypeProject model)
         {
             try
             {
+                // Validate the model
+                if (model == null || string.IsNullOrWhiteSpace(model.Name))
+                {
+                    return new DTOResponse
+                    {
+                        IsSuccess = false,
+                        Message = "Model không hợp lệ.",
+                        Data = null
+                    };
+                }
+
                 var typeProjectEntity = new TypeProject
                 {
                     Name = model.Name
@@ -38,50 +51,12 @@ namespace DNDServer.Repository.Project
             }
             catch (Exception ex)
             {
+                var innerExceptionMessage = ex.InnerException != null ? ex.InnerException.Message : "No inner exception";
+
                 return new DTOResponse
                 {
                     IsSuccess = false,
-                    Message = $"Lỗi khi thêm sản phẩm loại: {ex.Message}",
-                    Data = null
-                };
-            }
-        }
-
-        public async Task<DTOResponse> UpdateTypeProjectAsync(DTOTypeProject model)
-        {
-            try
-            {
-                // Tìm sản phẩm loại trong cơ sở dữ liệu
-                var existingTypeProject = await _context.TypeProjects.FindAsync(model.Id);
-                if (existingTypeProject == null)
-                {
-                    return new DTOResponse
-                    {
-                        IsSuccess = false,
-                        Message = "Sản phẩm loại không tồn tại.",
-                        Data = null
-                    };
-                }
-
-                // Cập nhật các thuộc tính
-                existingTypeProject.Name = model.Name;
-
-                // Lưu thay đổi vào cơ sở dữ liệu
-                await _context.SaveChangesAsync();
-
-                return new DTOResponse
-                {
-                    IsSuccess = true,
-                    Message = "Cập nhật sản phẩm loại thành công!",
-                    Data = existingTypeProject
-                };
-            }
-            catch (Exception ex)
-            {
-                return new DTOResponse
-                {
-                    IsSuccess = false,
-                    Message = $"Lỗi khi cập nhật sản phẩm loại: {ex.Message}",
+                    Message = $"Lỗi khi thêm sản phẩm loại: {ex.Message}. Inner exception: {innerExceptionMessage}",
                     Data = null
                 };
             }
@@ -136,6 +111,7 @@ namespace DNDServer.Repository.Project
                 var dtoTypeProjects = typeProjects.Select(tp => new DTOTypeProject
                 {
                     Id = tp.Id,
+                    Name = tp.Name ?? "Unnamed" // Provide a default value if Name is null
                 }).ToList();
 
                 return new DTOResponse
@@ -168,6 +144,7 @@ namespace DNDServer.Repository.Project
                     var dtoTypeProject = new DTOTypeProject
                     {
                         Id = typeProject.Id,
+                        Name= typeProject.Name 
                     };
 
                     return new DTOResponse
@@ -198,6 +175,45 @@ namespace DNDServer.Repository.Project
             }
         }
 
+        public async Task<DTOResponse> UpdateTypeProjectAsync(DTOTypeProject model)
+        {
+            try
+            {
+                // Find the type project in the database
+                var existingTypeProject = await _context.TypeProjects.FindAsync(model.Id);
+                if (existingTypeProject == null)
+                {
+                    return new DTOResponse
+                    {
+                        IsSuccess = false,
+                        Message = "Sản phẩm loại không tồn tại.",
+                        Data = null
+                    };
+                }
+
+                // Update the properties
+                existingTypeProject.Name = model.Name;
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                return new DTOResponse
+                {
+                    IsSuccess = true,
+                    Message = "Cập nhật sản phẩm loại thành công!",
+                    Data = existingTypeProject
+                };
+            }
+            catch (Exception ex)
+            {
+                return new DTOResponse
+                {
+                    IsSuccess = false,
+                    Message = $"Lỗi khi cập nhật sản phẩm loại: {ex.Message}",
+                    Data = null
+                };
+            }
+        }
     }
 
 }

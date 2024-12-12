@@ -11,8 +11,8 @@ namespace DNDServer.DTO.Request
         public string Feature { get; set; }
         public string Specfication { get; set; }
         public string Review { get; set; }
-        public int Status { get; set; }
-        public string StatusName { get; set; }
+        public int Status { get; set; } = 0;
+        public string StatusName { get; set; } = "Đang soạn thảo";
         public int TypeData { get; set; }
         public decimal Price { get; set; }
         public int StockQuantity { get; set; }

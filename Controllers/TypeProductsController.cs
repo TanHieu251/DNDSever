@@ -28,22 +28,22 @@ namespace DNDServer.Controllers
 
 
 
-        // API ADD TYPE PRODUCT
+        // API ADD TYPE Product
         [HttpPost("AddTypeProduct")]
         public async Task<IActionResult> AddTypeProduct(DTOTypeProduct model)
         {
             try
             {
-                // Call the repository method to add the type product
+                // Call the repository method to add the type Product
                 DTOResponse response = await _typeProductRepo.AddTypeProductAsync(model);
 
                 if (response.IsSuccess == true)
                 {
-                    return Ok(response); 
+                    return Ok(response);
                 }
                 else
                 {
-                    return BadRequest(response); 
+                    return BadRequest(response);
                 }
             }
             catch (Exception ex)
@@ -57,38 +57,30 @@ namespace DNDServer.Controllers
             }
         }
 
-        // PUT: api/TypeProducts/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTypeProduct(int id, TypeProduct typeProduct)
+
+        [HttpPost("UpdateTypeProduct")]
+        public async Task<IActionResult> UpdateTypeProduct(DTOTypeProduct model)
         {
-            if (id != typeProduct.Id)
+            if (model == null || string.IsNullOrWhiteSpace(model.Name))
             {
-                return BadRequest();
-            }
-
-            _context.Entry(typeProduct).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TypeProductExists(id))
+                return BadRequest(new DTOResponse
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                    IsSuccess = false,
+                    Message = "Model không hợp lệ.",
+                    Data = null
+                });
             }
 
-            return NoContent();
+            var response = await _typeProductRepo.UpdateTypeProductAsync(model);
+            if (response.IsSuccess)
+            {
+                return Ok(response);
+            }
+            return StatusCode(500, response);
         }
 
-        [HttpGet]
+
+        [HttpPost("GetAllTypeProduct")]
         public async Task<IActionResult> GetAllTypeProducts()
         {
             try
@@ -108,7 +100,7 @@ namespace DNDServer.Controllers
         }
 
         // GET: api/TypeProducts/5
-        [HttpGet("{id}")]
+        [HttpPost("GetTypeProduct")]
         public async Task<IActionResult> GetTypeProductById(int id)
         {
             try
@@ -131,19 +123,29 @@ namespace DNDServer.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpPost("DeleteTypeProduct")]
         public async Task<IActionResult> DeleteTypeProduct(int id)
         {
             try
             {
                 var response = await _typeProductRepo.DeleteTypeProductAsync(id);
-                if (response.IsSuccess) 
+                if (response.IsSuccess)
                 {
-                    return NoContent();
+                    return Ok(new DTOResponse
+                    {
+                        IsSuccess = true,
+                        Message = "Xoá sản phẩm thành công",
+
+                    });
                 }
                 else
                 {
-                    return NotFound(response);
+                    return Ok(new DTOResponse
+                    {
+                        IsSuccess = true,
+                        Message = "Xoá loại dự án thành công, không tìm thấy",
+
+                    });
                 }
             }
             catch (Exception ex)
@@ -156,6 +158,8 @@ namespace DNDServer.Controllers
                 });
             }
         }
+
+
 
         private bool TypeProductExists(int id)
         {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JzoW1ZkdoYK57sT/fE+OssLDf9W68JvVoKt6Q8Ct3ads4HZz90mcmO5GlSs79kjhhYw+1FLVpZaf8/gjbiZaGA==",
+  "dgSpecHash": "KfSOiTjSb3I8qgGTB0DlQg+KBxnaFv+OYofLZ/r9MNSNnsScSNF7GhN1EN6kNwLr/2iTO981Zs+kPWnJAmPMsQ==",
   "success": true,
-  "projectFilePath": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer\\DNDServer\\DNDServer.csproj",
+  "projectFilePath": "D:\\VLU-KTPM\\VLU-K28-NAM3\\KI-I\\DOAN3-FOLDER\\DNDServer - Copy\\DNDServer\\DNDServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ADMIN\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",

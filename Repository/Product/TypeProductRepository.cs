@@ -17,10 +17,23 @@ namespace DNDServer.Repository.Product
         }
 
 
+
+        //THEM LOAI SAN PHAM
         public async Task<DTOResponse> AddTypeProductAsync(DTOTypeProduct model)
         {
             try
             {
+                // Validate the model
+                if (model == null || string.IsNullOrWhiteSpace(model.Name))
+                {
+                    return new DTOResponse
+                    {
+                        IsSuccess = false,
+                        Message = "Model không hợp lệ.",
+                        Data = null
+                    };
+                }
+
                 var typeProductEntity = new TypeProduct
                 {
                     Name = model.Name
@@ -38,50 +51,12 @@ namespace DNDServer.Repository.Product
             }
             catch (Exception ex)
             {
+                var innerExceptionMessage = ex.InnerException != null ? ex.InnerException.Message : "No inner exception";
+
                 return new DTOResponse
                 {
                     IsSuccess = false,
-                    Message = $"Lỗi khi thêm sản phẩm loại: {ex.Message}",
-                    Data = null
-                };
-            }
-        }
-
-        public async Task<DTOResponse> UpdateTypeProductAsync(DTOTypeProduct model)
-        {
-            try
-            {
-                // Tìm sản phẩm loại trong cơ sở dữ liệu
-                var existingTypeProduct = await _context.TypeProducts.FindAsync(model.Id);
-                if (existingTypeProduct == null)
-                {
-                    return new DTOResponse
-                    {
-                        IsSuccess = false,
-                        Message = "Sản phẩm loại không tồn tại.",
-                        Data = null
-                    };
-                }
-
-                // Cập nhật các thuộc tính
-                existingTypeProduct.Name = model.Name;
-
-                // Lưu thay đổi vào cơ sở dữ liệu
-                await _context.SaveChangesAsync();
-
-                return new DTOResponse
-                {
-                    IsSuccess = true,
-                    Message = "Cập nhật sản phẩm loại thành công!",
-                    Data = existingTypeProduct
-                };
-            }
-            catch (Exception ex)
-            {
-                return new DTOResponse
-                {
-                    IsSuccess = false,
-                    Message = $"Lỗi khi cập nhật sản phẩm loại: {ex.Message}",
+                    Message = $"Lỗi khi thêm sản phẩm loại: {ex.Message}. Inner exception: {innerExceptionMessage}",
                     Data = null
                 };
             }
@@ -102,7 +77,7 @@ namespace DNDServer.Repository.Product
                     return new DTOResponse
                     {
                         IsSuccess = true,
-                        Message = "Xoá danh mục sản phẩm thành công"
+                        Message = $"Xoá danh mục sản phẩm thành công",
                     };
                 }
                 else
@@ -110,7 +85,7 @@ namespace DNDServer.Repository.Product
                     return new DTOResponse
                     {
                         IsSuccess = false,
-                        Message = "Danh mục cần xoá không tìm thấy"
+                        Message = $"Danh mục cần xoá không tìm thấy ",
                     };
                 }
             }
@@ -119,7 +94,7 @@ namespace DNDServer.Repository.Product
                 return new DTOResponse
                 {
                     IsSuccess = false,
-                    Message = "Xoá danh mục sản phẩm không thành công: " + ex.Message
+                    Message = $"Xoá danh mục sản phẩm không thành công",
                 };
             }
         }
@@ -136,6 +111,7 @@ namespace DNDServer.Repository.Product
                 var dtoTypeProducts = typeProducts.Select(tp => new DTOTypeProduct
                 {
                     Id = tp.Id,
+                    Name = tp.Name ?? "Unnamed" // Provide a default value if Name is null
                 }).ToList();
 
                 return new DTOResponse
@@ -168,6 +144,7 @@ namespace DNDServer.Repository.Product
                     var dtoTypeProduct = new DTOTypeProduct
                     {
                         Id = typeProduct.Id,
+                        Name = typeProduct.Name
                     };
 
                     return new DTOResponse
@@ -193,6 +170,46 @@ namespace DNDServer.Repository.Product
                 {
                     IsSuccess = false,
                     Message = $"Error retrieving TypeProduct: {ex.Message}",
+                    Data = null
+                };
+            }
+        }
+
+        public async Task<DTOResponse> UpdateTypeProductAsync(DTOTypeProduct model)
+        {
+            try
+            {
+                // Find the type Product in the database
+                var existingTypeProduct = await _context.TypeProducts.FindAsync(model.Id);
+                if (existingTypeProduct == null)
+                {
+                    return new DTOResponse
+                    {
+                        IsSuccess = false,
+                        Message = "Sản phẩm loại không tồn tại.",
+                        Data = null
+                    };
+                }
+
+                // Update the properties
+                existingTypeProduct.Name = model.Name;
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                return new DTOResponse
+                {
+                    IsSuccess = true,
+                    Message = "Cập nhật sản phẩm loại thành công!",
+                    Data = existingTypeProduct
+                };
+            }
+            catch (Exception ex)
+            {
+                return new DTOResponse
+                {
+                    IsSuccess = false,
+                    Message = $"Lỗi khi cập nhật sản phẩm loại: {ex.Message}",
                     Data = null
                 };
             }

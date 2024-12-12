@@ -91,6 +91,11 @@ namespace DNDServer.Repository.Product
         public async Task UpdateProductAsync(DTOProduct dtoProduct)
         {
             var product = await _context.Products.FindAsync(dtoProduct.Id);
+            if (product == null)
+            {
+                throw new KeyNotFoundException("Sản phẩm không tìm thấy."); // You can customize the message
+            }
+
             if (product != null)
             {
                 product.Code = dtoProduct.Code;
